@@ -1,3 +1,3 @@
 # info2180-Lab-5
 
-This is Lab 5 for <Your Name> on PHP and MySQL
+This is Lab 5 for Andrew Sterling on PHP and MySQL
