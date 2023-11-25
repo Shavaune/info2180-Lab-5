@@ -1,49 +1,51 @@
-window.onload=function(){
-    var lookup= document.getElementById("lookup");
-    var lookupcities= document.getElementById("lookupcities");
-    
-    lookup.addEventListener("click",(e)=>{
-        e.preventDefault();
-        var input = document.getElementById("country").value;
-        var httpRequest= new XMLHttpRequest();
-        var url= "world.php?country=" + input + "&context=countries";
-        
-        httpRequest.onreadystatechange= display;
-        httpRequest.open("GET",url);
-        httpRequest.send();
+onload = function(){
+    //Variables
+    var request = new XMLHttpRequest();
+    var btn = document.querySelector("#lookup");
+    var btn2 = document.querySelector("#citylookup");
+    var input = document.querySelector("#country");
+    var output = document.querySelector("#result");
+    var url = "world.php?country=";
 
-        function display(){
-            if(httpRequest.readyState===XMLHttpRequest.DONE){
-                if(httpRequest.status===200){
-                    var response= httpRequest.responseText;
-                    var result=document.getElementById("result");
-                    result.innerHTML=response;
-                }else{
-                    alert("There was a problem with this request");
+    btn.addEventListener("click", e =>{
+        e.preventDefault();
+
+        //AJAX request using XMLHttpRequest
+        request.onreadystatechange = e =>{
+            if(request.readyState == 4){
+                if(request.status == 200){
+                    var answer = request.responseText;
+                    output.innerHTML = answer;
+                    console.log(":D");
+                }
+                else{
+                    output.innerHTML = "An error occured X_X";
+                    console.log("D:");
                 }
             }
         }
+        request.open("GET", url +  input.value);
+        request.send();
     });
 
-    lookupcities.addEventListener("click",(e)=>{
+    btn2.addEventListener("click", e =>{
         e.preventDefault();
-        var input = document.getElementById("country").value;
-        var httpRequest= new XMLHttpRequest();
-        var url= "world.php?country=" + input + "&context=cities";
-        httpRequest.onreadystatechange= getcity;
-        httpRequest.open("GET",url);
-        httpRequest.send();
 
-        function getcity(){
-            if(httpRequest.readyState===XMLHttpRequest.DONE){
-                if(httpRequest.status===200){
-                    var response= httpRequest.responseText;
-                    var result=document.getElementById("result");
-                    result.innerHTML=response;
-                }else{
-                    alert("There was a problem with this request");
+        //AJAX request using XMLHttpRequest
+        request.onreadystatechange = e =>{
+            if(request.readyState == 4){
+                if(request.status == 200){
+                    var answer = request.responseText;
+                    output.innerHTML = answer;
+                    console.log(":D");
+                }
+                else{
+                    output.innerHTML = "An error occured X_X";
+                    console.log("D:");
                 }
             }
         }
+        request.open("GET", url +  input.value + "&context=cities");
+        request.send();
     });
 }
